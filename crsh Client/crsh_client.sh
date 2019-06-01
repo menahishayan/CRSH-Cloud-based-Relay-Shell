@@ -18,7 +18,7 @@ while true
 do
     if [ $FIRST = 1 ]; then
         FIRST=0
-        PRECHECK=$($DIR/dropbox_uploader.sh list /crsh | grep -y "crsh.out" | sed '/^\s*$/d' | wc -l)
+        PRECHECK=$(./dropbox_uploader.sh list /crsh | grep -y "crsh.out" | sed '/^\s*$/d' | wc -l)
         if [ $PRECHECK = 1 ]; then
             ./dropbox_uploader.sh download /crsh/crsh.out $TMP/crsh.out > /dev/null
             cat $TMP/crsh.out
@@ -52,5 +52,5 @@ do
         fi
     done
 
-    if [ $FLAG = 0 ]; then echo "I/O Error"; fi
+if [ $FLAG = 0 ]; then echo "I/O Error"; break; fi
 done
