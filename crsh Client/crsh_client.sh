@@ -16,11 +16,14 @@ while true
 do
     read -p 'root@GoFlexHome:~# ' CMD
 
+    if [ ${#CMD} -le 1 ]; then
+    continue
+    fi
+
     echo "$CMD" > "$TMP/crsh.in"
     ./dropbox_uploader.sh upload $TMP/crsh.in /crsh/crsh.in > /dev/null
 
     if [ "$CMD" = "exit" ]; then
-
         break
     fi
 
