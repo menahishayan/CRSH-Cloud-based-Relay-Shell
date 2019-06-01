@@ -21,7 +21,15 @@ do
         PRECHECK=$(./dropbox_uploader.sh list /crsh | grep -y "crsh.out" | sed '/^\s*$/d' | wc -l)
         if [ $PRECHECK = 1 ]; then
             ./dropbox_uploader.sh download /crsh/crsh.out $TMP/crsh.out > /dev/null
-            cat $TMP/crsh.out
+            FILESIZE=$(du -k $TMP/crsh.out | cut -f1 )
+            if [ $FILESIZE -le 1000 ]; then
+                cat $TMP/crsh.out
+            else echo "Output saved in crsh.out"
+            fi
+
+            ./dropbox_uploader.sh delete /crsh/crsh.in > /dev/null
+            ./dropbox_uploader.sh delete /crsh/crsh.out > /dev/null
+
         fi
     fi
 
@@ -46,7 +54,11 @@ do
 
     if [ $RESULT = 1 ]; then
             ./dropbox_uploader.sh download /crsh/crsh.out $TMP/crsh.out > /dev/null
-            cat $TMP/crsh.out
+            FILESIZE=$(du -k $TMP/crsh.out | cut -f1 )
+            if [ $FILESIZE -le 1000 ]; then
+                cat $TMP/crsh.out
+            else echo "Output saved in crsh.out"
+            fi
             FLAG=1
             break
         fi
