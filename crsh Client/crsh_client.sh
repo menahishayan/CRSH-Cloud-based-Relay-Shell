@@ -12,8 +12,19 @@
 TMP=./tmp
 #touch $TMP/crsh.in
 
+FIRST=1
+
 while true
 do
+    if [ $FIRST = 1 ]; then
+        FIRST=0
+        PRECHECK=$($DIR/dropbox_uploader.sh list /crsh | grep -y "crsh.out" | sed '/^\s*$/d' | wc -l)
+        if [ $PRECHECK = 1 ]; then
+            ./dropbox_uploader.sh download /crsh/crsh.out $TMP/crsh.out > /dev/null
+            cat $TMP/crsh.out
+        fi
+    fi
+
     read -p 'root@GoFlexHome:~# ' CMD
 
     if [ ${#CMD} -le 1 ]; then
