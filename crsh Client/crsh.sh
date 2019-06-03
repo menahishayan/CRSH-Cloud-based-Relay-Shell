@@ -29,10 +29,8 @@ do
 
             ./dropbox_uploader.sh delete /crsh/crsh.in > /dev/null
             ./dropbox_uploader.sh delete /crsh/crsh.out > /dev/null
-
         fi
     fi
-
     read -p 'root@GoFlexHome:~# ' CMD
 
     if [ ${#CMD} -le 1 ]; then
